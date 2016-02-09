@@ -21,7 +21,7 @@ function toggleDeleteButtons() {
       link.rel = 'nofollow';
       link.setAttribute('data-confirm','Are you sure?');
       link.setAttribute('data-method', 'delete');
-      link.href='/projects/' + projects[i].id;
+      link.href='/projects/' + projects[i].id.slice(-1);
       link.innerHTML = 'X';
       link.id='delete';
       projects[i].appendChild(link);

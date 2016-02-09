@@ -4,19 +4,6 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @isAdmin = false
-    allowed_tasks = Task.includes(:project).where(:user_id => current_user)
-    project_ids = ""
-    for allowed_task in allowed_tasks
-      project_ids += allowed_task.project_id.to_s + ","
-    end
-    project_ids = project_ids[0..project_ids.length - 2]
-    project_ids = project_ids.split(",")
-    @projects = Project.find(project_ids)
-    if current_user.email == '40095@jisedu.or.id'
-      @isAdmin = true
-      @projects = Project.all
-    end
   end
 
   # GET /projects/1
@@ -26,7 +13,10 @@ class ProjectsController < ApplicationController
 
   # GET /projects/new
   def new
+    :define_user_projects
     @project = Project.new
+    @project.tasks.build
+    @project.success_conditions.build
   end
 
   # GET /projects/1/edit
@@ -71,13 +61,8 @@ class ProjectsController < ApplicationController
       format.json { head :no_content }
     end
   end
-
-  def add_tasks
-    respond_to do |format|
-      format.js
-    end
-  end
   def define_user_projects
+    @isAdmin = false
     allowed_tasks = Task.includes(:project).where(:user_id => current_user)
     project_ids = ""
     for allowed_task in allowed_tasks
@@ -86,6 +71,10 @@ class ProjectsController < ApplicationController
     project_ids = project_ids[0..project_ids.length - 2]
     project_ids = project_ids.split(",")
     @projects = Project.find(project_ids)
+    if current_user.email == '40095@jisedu.or.id'
+      @isAdmin = true
+      @projects = Project.all
+    end
   end
 
   private
@@ -96,6 +85,6 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:name, :id, :success_conditions_attributes => [:project_id, :description, :completed?, :_destroy], :tasks_attributes => [:description, :status, :project_id, :user_id, :_destroy])
+      params.require(:project).permit(:name, :id, :success_conditions_attributes => [:project_id, :description, :completed?, :_destroy], :tasks_attributes => [:description, :status, :project_id, :email, :_destroy])
     end
 end

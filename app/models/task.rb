@@ -9,5 +9,6 @@ class Task < ActiveRecord::Base
     end
   end
   def assign_users
+    self.user_id = 1;
   end
 end

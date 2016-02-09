@@ -10,7 +10,7 @@
 <h3> Tasks </h3>
 <ul>
 <% for task in @project.tasks %>
-<li> <%= "#{task.description}: #{User.where(:id => task.user_id).first.name}"%> </li>
+<li> <span class= "#{<%=task.status%>}"" > <%= "#{task.description}:" %> </span> <%="#{User.where(:id => task.user_id).first.name}"%> </li>
 <% end %>
 </ul>
 <%= link_to 'Edit', edit_project_path(@project) %> |

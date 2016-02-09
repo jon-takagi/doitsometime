@@ -17,9 +17,22 @@ function add_tasks(link) {
   var removeLink = document.createElement("a");
   var userLabel = document.createElement("userLabel");
   var userField = document.createElement("input");
+  var statusBar = document.createElement("select");
+  statusBar.name = "project[tasks_attributes][" + new_id + "][status]";
+  var option_texts = ["Not started", "In progress", "Need help", "Complete"];
+  for(var i = 0; i < option_texts.length; i++) {
+    var option = document.createElement("option");
+    option.id = "project_tasks_status_" + new_id;
+    option.innerHTML = option_texts[i];
+    statusBar.appendChild(option);
+  }
+  var statusLabel = document.createElement("label");
+  statusLabel.innerHTML = "Status: ";
+
   descriptionLabel.innerHTML = "Description";
   descriptionField.name = "project[tasks_attributes]["+new_id+"][description]";
   descriptionField.id = "project_tasks_description_" +  new_id;
+
   userLabel.innerHTML = "User email:";
   userField.name = "project[tasks_attributes]["+new_id+"][email]";
   userField.id = "project_tasks_email_" +  new_id;
@@ -34,6 +47,8 @@ function add_tasks(link) {
   removeLink.innerHTML = "remove";
   li.appendChild(descriptionLabel);
   li.appendChild(descriptionField);
+  li.appendChild(statusLabel);
+  li.appendChild(statusBar);
   li.appendChild(userLabel);
   li.appendChild(userField);
   li.appendChild(hidden_field);
