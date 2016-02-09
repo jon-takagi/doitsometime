@@ -1,0 +1,14 @@
+<%= form_for(@project) do |f| %>
+<%= render 'display_errors' %>
+<div class="field">
+  <%= f.label :name %><br>
+  <%= f.text_field :name %>
+</div>
+<%= render partial: 'success_conditions', :locals => {:f => f} %>
+<%= render partial: 'tasks', :locals => {:f => f} %>
+</ul>
+</br>
+<div class="actions">
+  <%= f.submit %>
+</div>
+<% end %>

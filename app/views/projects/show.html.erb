@@ -1,0 +1,17 @@
+<p id="notice"><%= notice %></p>
+<h2> <%= @project.name %> </h2>
+<h3> Success Conditions </h3>
+<ul>
+<% for succ_con in @project.success_conditions %>
+<li> <%= succ_con.description %> </li>
+<% end %>
+</ul>
+
+<h3> Tasks </h3>
+<ul>
+<% for task in @project.tasks %>
+<li> <%= "#{task.description}: #{User.where(:id => task.user_id).first.name}"%> </li>
+<% end %>
+</ul>
+<%= link_to 'Edit', edit_project_path(@project) %> |
+<%= link_to 'Back', projects_path %>
