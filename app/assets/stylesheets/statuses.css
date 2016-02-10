@@ -1,1 +1,13 @@
-.not
+.notstarted {
+  color: red;
+}
+.inprogress {
+  color: orange;
+}
+.needhelp {
+  color: yellow;
+
+}
+.complete {
+  color: green;
+}

@@ -11,6 +11,7 @@ function remove_task(link) {
 function add_tasks(link) {
   var new_id = new Date().getTime();
   var li = document.createElement("li");
+  li.className = "task";
   var descriptionLabel = document.createElement("descriptionLabel");
   var descriptionField = document.createElement("input");
   var hidden_field = document.createElement("input");
@@ -28,12 +29,10 @@ function add_tasks(link) {
   }
   var statusLabel = document.createElement("label");
   statusLabel.innerHTML = "Status: ";
-
   descriptionLabel.innerHTML = "Description";
   descriptionField.name = "project[tasks_attributes]["+new_id+"][description]";
   descriptionField.id = "project_tasks_description_" +  new_id;
-
-  userLabel.innerHTML = "User email:";
+  userLabel.innerHTML = "Assign To:";
   userField.name = "project[tasks_attributes]["+new_id+"][email]";
   userField.id = "project_tasks_email_" +  new_id;
   hidden_field.name = "project[tasks_attributes]["+new_id+"][_destroy]";
@@ -47,10 +46,10 @@ function add_tasks(link) {
   removeLink.innerHTML = "remove";
   li.appendChild(descriptionLabel);
   li.appendChild(descriptionField);
-  li.appendChild(statusLabel);
-  li.appendChild(statusBar);
   li.appendChild(userLabel);
   li.appendChild(userField);
+  li.appendChild(statusLabel);
+  li.appendChild(statusBar);
   li.appendChild(hidden_field);
   li.appendChild(removeLink);
   document.getElementById("tasks").appendChild(li);

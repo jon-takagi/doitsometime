@@ -1,7 +1,12 @@
 <h3> Success Conditions: </h3>
 <ul id="conditions">
-  <script type='text/javascript'>
-    add_success_conditions(this);
-  </script>
+  <% for success_condition in @project.success_conditions %>
+    <li>
+    <%= f.label :description %>
+    <%= f.text_field :description, :value => success_condition.description %>
+   <%= link_to "remove", '#', onclick: 'remove_success_condition(this)' %>
+  </li>
+  <% end %>
+
 </ul>
 <%= link_to "Add Success Conditions", '#', onclick: 'add_success_conditions(this)' %> <br/>

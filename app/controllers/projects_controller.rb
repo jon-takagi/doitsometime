@@ -13,7 +13,6 @@ class ProjectsController < ApplicationController
 
   # GET /projects/new
   def new
-    :define_user_projects
     @project = Project.new
     @project.tasks.build
     @project.success_conditions.build
@@ -27,6 +26,10 @@ class ProjectsController < ApplicationController
   # POST /projects.json
   def create
     @project = Project.new(project_params)
+    for task in @project.tasks
+      errors.add("User not found") if User.where(:email => task.email).first.nil?
+      task.user_id = User.where(:email => task.email).first.id
+    end
     respond_to do |format|
       if @project.save
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
@@ -41,6 +44,9 @@ class ProjectsController < ApplicationController
   # PATCH/PUT /projects/1
   # PATCH/PUT /projects/1.json
   def update
+    for task in @project.tasks
+      task.user_id = User.where(:email => task.email).first.id
+    end
     respond_to do |format|
       if @project.update(project_params)
         format.html { redirect_to @project, notice: 'Project was successfully updated.' }
