@@ -57,7 +57,7 @@ class ProjectsController < ApplicationController
     user_ids = ""
     for task in @project.tasks
       if User.where(:email => task.email).first.nil?
-        @project.errors.add("User not found")
+        @project.errors.add(:email, "User not found")
       else
         task.user_id = User.where(:email => task.email).first.id
       end
