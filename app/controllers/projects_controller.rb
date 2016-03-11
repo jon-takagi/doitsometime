@@ -26,10 +26,7 @@ class ProjectsController < ApplicationController
   # POST /projects.json
   def create
     @project = Project.new(project_params)
-    for task in @project.tasks
-      errors.add("User not found") if User.where(:email => task.email).first.nil?
-      task.user_id = User.where(:email => task.email).first.id
-    end
+    handle_tasks
     respond_to do |format|
       if @project.save
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
@@ -44,9 +41,7 @@ class ProjectsController < ApplicationController
   # PATCH/PUT /projects/1
   # PATCH/PUT /projects/1.json
   def update
-    for task in @project.tasks
-      task.user_id = User.where(:email => task.email).first.id
-    end
+    handle_tasks
     respond_to do |format|
       if @project.update(project_params)
         format.html { redirect_to @project, notice: 'Project was successfully updated.' }
@@ -58,6 +53,18 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def handle_tasks
+    user_ids = ""
+    for task in @project.tasks
+      if User.where(:email => task.email).first.nil?
+        @project.errors.add("User not found")
+      else
+        task.user_id = User.where(:email => task.email).first.id
+      end
+      user_ids += task.user_id.to_s + ", "
+    end
+    puts user_ids
+  end
   # DELETE /projects/1
   # DELETE /projects/1.json
   def destroy
@@ -91,6 +98,6 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:name, :id, :success_conditions_attributes => [:project_id, :description, :completed?, :_destroy], :tasks_attributes => [:description, :status, :project_id, :email, :_destroy])
+      params.require(:project).permit(:name, :id, :success_conditions_attributes => [:id, :project_id, :description, :completed?, :_destroy], :tasks_attributes => [:id, :description, :status, :project_id, :email, :_destroy])
     end
 end

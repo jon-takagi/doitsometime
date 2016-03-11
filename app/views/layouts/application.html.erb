@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Google Auth Example App</title>
+  <title> doitsometi.me</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
   <div class="header">
-    <h3> Do it sometime </h3>
+    <a href="<%=projects_path %>"> <h3> Do it sometime </h3> </a>
     <div id="user" >
       <% if current_user %>
       Welcome, <%= current_user.name %>

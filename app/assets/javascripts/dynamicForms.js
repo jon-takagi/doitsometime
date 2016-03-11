@@ -1,9 +1,8 @@
 function remove_success_condition(link) {
-  console.log("test");
-  var inputs = document.getElementsByTagName('input');
+  var inputs = link.parentNode.getElementsByTagName('input');
   for(var i = 0; i < inputs.length; i++) {
-    if(inputs[i].type.toLowerCase() == 'hidden') {
-      inputs[i].value = 1;
+    if(inputs[i].type.toLowerCase() == 'hidden' && inputs[i].name.includes('_destroy')) {
+      inputs[i].value = 1; //False
     }
   }
   link.parentNode.style.display = 'none';
@@ -28,6 +27,7 @@ function add_success_conditions(link) {
   };
   removeLink.href = "#";
   removeLink.innerHTML = "remove";
+  li.appendChild(hidden_field);
   li.appendChild(label);
   li.appendChild(textField);
   li.appendChild(hidden_field);

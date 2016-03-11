@@ -4,9 +4,32 @@
   <%= f.label :name %><br>
   <%= f.text_field :name %>
 </div>
-<%= render partial: 'success_conditions', :locals => {:f => f} %>
-<%= render partial: 'tasks', :locals => {:f => f} %>
+<h3> Success Conditions: </h3>
+<ul id="conditions">
+  <%=f.fields_for :success_conditions do |builder|%>
+  <li>
+    <%= builder.label :description %>
+    <%= builder.text_field :description %>
+    <%= builder.hidden_field :_destroy %>
+    <%= link_to "remove", '#', onclick: 'remove_success_condition(this)' %>
+  </li>
+  <% end %>
 </ul>
+<%= link_to "Add Success Conditions", '#', onclick: 'add_success_conditions(this)' %> <br/>
+<h3> Tasks </h3>
+<ul id="tasks">
+  <%=f.fields_for :tasks do |builder|%>
+    <%= builder.label :description %>
+    <%= builder.text_field :description%>
+    <%= builder.label :email, "Assign To:" %>
+    <%= builder.text_field :email %>
+    <%= builder.label :status, "Status:" %>
+    <%= select_tag(:status, options_for_select(["Not Started", "In Progress", "Need Help", "Completed"])) %>
+    <%= link_to "remove", '#', onclick: 'remove_task(this)' %>
+  <% end %>
+</ul>
+
+<%= link_to "Add Tasks", '#', onclick: 'add_tasks(this)' %> <br/>
 </br>
 <div class="actions">
   <%= f.submit %>

@@ -12,13 +12,11 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20160209064935) do
-
   create_table "projects", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "name"
   end
-
   create_table "success_conditions", force: :cascade do |t|
     t.string   "description"
     t.boolean  "completed?"
@@ -26,7 +24,6 @@ ActiveRecord::Schema.define(version: 20160209064935) do
     t.datetime "updated_at",  null: false
     t.integer  "project_id"
   end
-
   create_table "tasks", force: :cascade do |t|
     t.string   "description"
     t.string   "status"
@@ -36,9 +33,7 @@ ActiveRecord::Schema.define(version: 20160209064935) do
     t.datetime "updated_at",  null: false
     t.string   "email"
   end
-
   add_index "tasks", ["project_id"], name: "index_task_on_project_id"
-
   create_table "users", force: :cascade do |t|
     t.string   "provider"
     t.string   "uid"
@@ -49,5 +44,4 @@ ActiveRecord::Schema.define(version: 20160209064935) do
     t.datetime "updated_at",       null: false
     t.string   "email"
   end
-
 end
