@@ -2,22 +2,25 @@
 <h2> <%= @project.name %> </h2>
 <h3> Success Conditions </h3>
 <ul>
-<% for succ_con in @project.success_conditions %>
-<li> <%= succ_con.description %> </li>
-<% end %>
+  <% for succ_con in @project.success_conditions %>
+  <li> <%= succ_con.description %> </li>
+  <% end %>
 </ul>
 
 <h3> Tasks </h3>
 <ul>
-<% for task in @project.tasks %>
-<li> <span class="<%=task.status%>"> <%= "#{task.description}:" %> </span>
-  <% if User.where(:id => task.user_id).first.nil? %>
-  <%="Unknown user"%>
-  <% else %>
-  <%="#{User.where(:id => task.user_id).first.name}"%>
+  <% for task in @project.tasks %>
+    <%= content_tag :li do %>
+      <span class = <%= task.status.to_s.downcase.delete(' ') %> >
+        <%= task.description + ": " %>
+      </span>
+      <% if User.where(:id => task.user_id).first.nil? %>
+      <%="Unknown user"%>
+      <% else %>
+      <%="#{User.where(:id => task.user_id).first.name}"%>
+      <% end %>
+    <% end %>
   <% end %>
-</li>
-<% end %>
 </ul>
 <%= link_to 'Edit', edit_project_path(@project) %> |
 <%= link_to 'Back', projects_path %>
