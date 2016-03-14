@@ -1,11 +1,11 @@
 .notstarted {
-  color: red;
+  color: black;
 }
 .inprogress {
-  color: orange;
+  color: #ff9900;
 }
 .needhelp {
-  color: yellow;
+  color: red;
 }
 .complete {
   color: green;
